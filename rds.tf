@@ -13,7 +13,7 @@ resource "aws_db_subnet_group" "db_subnet" {
 
 resource "aws_rds_cluster" "auroracluster" {
   cluster_identifier        = "auroracluster"
-  # availability_zones        = ["us-east-1a", "us-east-1b"]
+  availability_zones        = ["us-west-2a", "us-west-2b"]
 
   engine                    = "aurora-mysql"
   engine_version            = "5.7.mysql_aurora.2.11.1"
@@ -50,7 +50,7 @@ resource "aws_rds_cluster_instance" "clusterinstance" {
   cluster_identifier = aws_rds_cluster.auroracluster.id
   instance_class     = "db.t3.small"
   engine             = "aurora-mysql"
-  availability_zone  = "us-east-1${count.index == 0 ? "a" : "b"}"
+  availability_zone  = "us-west-2${count.index == 0 ? "a" : "b"}"
   publicly_accessible = true
 
   tags = {
